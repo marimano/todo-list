@@ -22,4 +22,17 @@ addBtnEl.addEventListener('click', event => {
   }
 
   createTodoItem(newTaskText, todoListEl);
-})
+  todoInputEl.value = '';
+});
+
+todoListEl.addEventListener('click', event => {
+  event.stopPropagation();
+
+  if (event.target.className === 'delete-todo-btn') {
+    const todoItemEl = event.target.closest(".todo-list-item");
+    const taskText = todoItemEl.querySelector('.todo-list-item-text').textContent;
+    if (confirm(`Ти добре подумав і хочеш видалити ${taskText} ?`)) {
+      todoItemEl.remove();
+    }
+  }
+});
