@@ -51,7 +51,7 @@ app.delete('/list-item/:id', (req, res) => {
   return res.statusCode(400).send('No such todo item ', id);
 });
 
-app.listen({ port: 5555 })
+app.listen({ port: process.env.port || 5555, host: process.env.host || 'localhost' })
   .then(address => {
     console.log('App started at ', address)
   });

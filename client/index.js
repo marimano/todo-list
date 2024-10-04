@@ -10,9 +10,7 @@ let todoList = [];
 getAllTodos()
   .then(list => {
     todoList.push(...list);
-    todoList.forEach(todo => {
-      createTodoItem(todo, todoListEl);
-    })
+    todoList.forEach(todo => createTodoItem(todo, todoListEl));
   });
 
 function createTodoItem({ text, id }, parent) {
@@ -46,8 +44,7 @@ todoListEl.addEventListener('click', async event => {
   const todoItem = todoList.find(task => task.id === todoItemEl.id);
   switch (target.className) {
     case 'delete-todo-btn': {
-      const taskText = todoItemEl.querySelector('.todo-list-item-text').textContent;
-      if (confirm(`Ти добре подумав і хочеш видалити ${taskText} ?`)) {
+      if (confirm(`Ти добре подумав і хочеш видалити ${todoItem.text}?`)) {
         await deleteTodo(todoItemEl.id);
         todoItemEl.remove();
         todoList = todoList.filter(task => task.id !== todoItemEl.id);
@@ -57,7 +54,7 @@ todoListEl.addEventListener('click', async event => {
 
     case 'edit-todo-btn': {
       const taskText = todoItemEl.querySelector('.todo-list-item-text').textContent;
-      todoItemEl.innerHTML = `<input class="todo-list-item-text" value="${taskText}" default-value="${taskText}"/>
+      todoItemEl.innerHTML = `<input class="todo-list-item-text" value="${taskText}"/>
         <button class="save-todo-btn">Зберегти</button>
         <button class="cancel-todo-btn">Закрити</button>`;
       break;
