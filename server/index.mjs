@@ -83,7 +83,7 @@ app.delete('/list-item/:id', async (req, res) => {
   }
 });
 
-app.listen({ port: process.env.port || 5555, host: process.env.host || 'localhost' })
+app.listen({ port: process.env.PORT || 5555, host: process.env.HOST || 'localhost' })
   .then(address => {
     console.log('App started at ', address)
   });
