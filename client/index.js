@@ -13,10 +13,10 @@ getAllTodos()
     todoList.forEach(todo => createTodoItem(todo, todoListEl));
   });
 
-function createTodoItem({ text, id }, parent) {
+function createTodoItem({ text, _id }, parent) {
   const itemEl = document.createElement('li');
   itemEl.className = 'todo-list-item';
-  itemEl.id = id
+  itemEl.id = _id
   itemEl.innerHTML = `<span class="todo-list-item-text">${text}</span>
     <button class="edit-todo-btn">Редагувати</button>
     <button class="delete-todo-btn">Видалити</button>`;
@@ -30,8 +30,8 @@ addBtnEl.addEventListener('click', async () => {
     return;
   }
 
-  const id = await addTodo(newTaskText);
-  const newTask = { id, text: newTaskText };
+  const _id = await addTodo(newTaskText);
+  const newTask = { _id, text: newTaskText };
   todoList.push(newTask);
   createTodoItem(newTask, todoListEl);
   todoInputEl.value = '';
@@ -41,13 +41,13 @@ todoListEl.addEventListener('click', async event => {
   event.stopPropagation();
   const { target } = event;
   const todoItemEl = target.closest(".todo-list-item");
-  const todoItem = todoList.find(task => task.id === todoItemEl.id);
+  const todoItem = todoList.find(task => task._id === todoItemEl.id);
   switch (target.className) {
     case 'delete-todo-btn': {
       if (confirm(`Ти добре подумав і хочеш видалити ${todoItem.text}?`)) {
         await deleteTodo(todoItemEl.id);
         todoItemEl.remove();
-        todoList = todoList.filter(task => task.id !== todoItemEl.id);
+        todoList = todoList.filter(task => task._id !== todoItemEl.id);
       }
       break;
     }
